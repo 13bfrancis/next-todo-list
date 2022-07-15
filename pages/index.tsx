@@ -1,8 +1,11 @@
 import { signIn, signOut, useSession } from "next-auth/react";
+import { trpc } from "../server/utils/trpc";
 
 export default function IndexPage() {
   const { data: session } = useSession();
-  // console.log(session);
+
+  const { data } = trpc.useQuery(["user.getUserInfo"]);
+  console.log(data);
 
   if (!session || !session.user) {
     return (
