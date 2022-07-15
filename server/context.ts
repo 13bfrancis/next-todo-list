@@ -8,11 +8,12 @@ import { prisma } from "../utils/db";
 export async function createContext(opts?: trpcNext.CreateNextContextOptions) {
   const session =
     opts?.req &&
-    opts.res &&
+    opts?.res &&
     (await unstable_getServerSession(opts.req, opts.res, nextAuthOptions));
 
   return {
-    opts,
+    req: opts?.req,
+    res: opts?.res,
     prisma,
     session,
   };
